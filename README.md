@@ -1,60 +1,50 @@
-Name : Rhudhresh
-Reg. No: 212223050039
+## 4 BIT RIPPLE CARRY ADDER
+### DEVELOPED BY: S ADITYA
+### REG NO:212223040007
+### Program :
+```
+module ripple_carry_adder_4bit (
+    input [3:0] a, b,
+    input cin,
+    output [3:0] sum,
+    output cout
+);
+    wire c1, c2, c3;
 
-Aim:
-To design and simulate a traffic light controller for an intersection of three main roads, where each road has equal priority. The controller should regulate the traffic flow efficiently, ensuring safety and smooth movement of vehicles while diverting the traffic to path 1 direction and disabling control in other directions.
-Apparatus Required:
-1.	Hardware Description Language (HDL) simulation environment such as Verilog or VHDL.
-2.	Simulation software like ModelSim for testing and verification.
-3.	FPGA development board (optional) for hardware implementation.
-Procedure:
-1.	Define the State Machine
-2.	Implement the State Machine in HDL
-3.	Simulate the Design
-4.	Test the Design
-5.	Optimize and Refine
+    full_adder fa0 (.a(a[0]), .b(b[0]), .cin(cin),  .sum(sum[0]), .cout(c1));
+    full_adder fa1 (.a(a[1]), .b(b[1]), .cin(c1),   .sum(sum[1]), .cout(c2));
+    full_adder fa2 (.a(a[2]), .b(b[2]), .cin(c2),   .sum(sum[2]), .cout(c3));
+    full_adder fa3 (.a(a[3]), .b(b[3]), .cin(c3),   .sum(sum[3]), .cout(cout));
+endmodule
 
-State Table :
-•	To define the states, inputs, outputs, and state transitions. 
-•	Let's denote the three main roads as MR1, MR2, and MR3. 
-•	Each road can have three possible states for its traffic light: Red, Yellow, and Green. Here's the state table:
-   
-•	Each row represents a state transition along with the corresponding outputs for each main road.
-•	The "Counter" column indicates the counts for each state before transitioning to the next state.
-•	The "Current State" column represents the current state of the state machine.
-•	The "Next State" column indicates the state to transition to after completing the counts.
-•	The "MR1", "MR2", and "MR3" columns specify the traffic light states for each main road in the current state.
-•	"Red", "Yellow", and "Green" denote the states of the traffic lights.
-•	The counter counts from 0 to 9, where each count corresponds to one clock cycle.
-Code: 
+Create a Testbench:
 
-![image](https://github.com/RHUDHRESH/Hackathon/assets/74451692/5b696e19-ec79-407c-a4f6-2474894e9355)
+module testbench;
+    reg [3:0] a, b;
+    reg cin;
+    wire [3:0] sum;
+    wire cout;
 
-![image](https://github.com/RHUDHRESH/Hackathon/assets/74451692/a7afabae-6fd4-42d5-ab22-46a651b35cf9)
+    ripple_carry_adder_4bit rca (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));
 
-![image](https://github.com/RHUDHRESH/Hackathon/assets/74451692/0c7dec64-c053-4d4d-b0e6-11ee8b8372c7)
-
-![image](https://github.com/RHUDHRESH/Hackathon/assets/74451692/64f05004-b8f7-4e87-8cfb-23ad9ad1fb95)
-
-![image](https://github.com/RHUDHRESH/Hackathon/assets/74451692/b7523f53-7afa-4f8b-a824-da6c53e0e31f)
+    initial begin
+        // Apply test vectors
+        a = 4'b0000; b = 4'b0000; cin = 0;
+        #10;
+        a = 4'b0001; b = 4'b0001; cin = 0;
+        #10;
+        a = 4'b0010; b = 4'b0010; cin = 1;
+        #10;
+        a = 4'b1111; b = 4'b1111; cin = 1;
+        #10;
+        $stop; // End simulation
+    end
+endmodule
+```
+## OUTPUT:
+![image](https://github.com/ADITYA-205/BIT-RIPPLE-CARRY-ADDER/assets/169021938/f823005e-c59f-42e4-a30c-cd37007af758)
 
 
-
-
-
-
-
-RTL Schematic View
-
-![image](https://github.com/RHUDHRESH/Hackathon/assets/74451692/1bc00223-ea16-4533-ac48-93f3e65db698)
 
  
-
-
-Output Waveforms
-
-
- ![image](https://github.com/RHUDHRESH/Hackathon/assets/74451692/c9e5cc3f-51ec-4cb0-abcc-1e334c8742d9)
-
-
-
+ 
